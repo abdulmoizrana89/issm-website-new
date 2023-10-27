@@ -18,4 +18,4 @@ jobs:
 
       - name: Deploy to cPanel
         run: |
-          lftp -u issmai,628KrISbn0uQ:[ -e "open ftp.issm.ai; mirror -R ./dist /public_html; exit"
+          lftp -u issmai,628KrISbn0uQ:[ -e "open ftp.issm.ai; mirror -R ./build /public_html; exit"
