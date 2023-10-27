@@ -14,11 +14,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to cPanel
-        uses: wints/ftp-upload@v3
+        uses: SamK/cpanel-git@v1
         with:
           server: ftp.issm.ai
           username: issmai
           password: 628KrISbn0uQ:[
           localDir: ./dist
           remoteDir: /public_html
-
