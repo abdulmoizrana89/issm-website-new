@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install FTP client
-        run: sudo apt-get install -y lftp
+        run: sudo apt-get install -y ncftp
 
       - name: Deploy to cPanel
         run: |
-          lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -e "open ${{ secrets.FTP_SERVER }}; mirror -R ./dist /public_html/dist; exit"
+          ncftpput -u ${{ secrets.FTP_USERNAME }} -p ${{ secrets.FTP_PASSWORD }} -R -v ${{ secrets.FTP_SERVER }} /public_html/dist ./dist
