@@ -6,29 +6,19 @@ on:
       - main  # Change this to your main branch name
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14  # Change to your desired Node.js version
-
-      - name: Install project dependencies
-        run: npm install
-
-      - name: Build Vite project
-        run: npm run build
-
       - name: Deploy to cPanel
-        uses: SamK/cpanel-git@v1
+        uses: wints/ftp-upload@v3
         with:
           server: ftp.issm.ai
           username: issmai
           password: 628KrISbn0uQ:[
           localDir: ./dist
           remoteDir: /public_html
+
