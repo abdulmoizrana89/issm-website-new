@@ -27,7 +27,8 @@ jobs:
       - name: Deploy to cPanel
         uses: SamK/cpanel-git@v1
         with:
-          cpanel-username: issmai
-          cpanel-password: 628KrISbn0uQ:[
-          host: issm.ai  # Replace with your cPanel host
-          local-dir: ./dist  # Path to your Vite build output
+          server: ftp.issm.ai
+          username: issmai
+          password: 628KrISbn0uQ:[
+          localDir: ./dist
+          remoteDir: /public_html
