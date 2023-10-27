@@ -1,0 +1,20 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main # Change this to your main branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install FTP client
+        run: sudo apt-get install -y lftp
+
+      - name: Deploy to cPanel
+        run: lftp -u ${{ secrets.FTP_USERNAME }} -e "open ${{ secrets.FTP_HOST }}; mirror -R ./dist /public_html/dist; exit"
