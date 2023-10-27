@@ -13,11 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install FTP client
+        run: sudo apt-get install -y lftp
+
       - name: Deploy to cPanel
-        uses: SamK/cpanel-git@v1
-        with:
-          server: ftp.issm.ai
-          username: issmai
-          password: 628KrISbn0uQ:[
-          localDir: ./dist
-          remoteDir: /public_html
+        run: |
+          lftp -u issmai,628KrISbn0uQ:[ -e "open ftp.issm.ai; mirror -R ./dist /public_html; exit"
