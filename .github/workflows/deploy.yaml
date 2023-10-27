@@ -3,18 +3,31 @@ name: Deploy to cPanel
 on:
   push:
     branches:
-      - main # Change this to your main branch name
+      - main  # Change this to your main branch name
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install FTP client
-        run: sudo apt-get install -y lftp
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14  # Change to your desired Node.js version
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Build Vite project
+        run: npm run build
 
       - name: Deploy to cPanel
-        run: lftp -u ${{ secrets.FTP_USERNAME }} -e "open ${{ secrets.FTP_HOST }}; mirror -R ./dist /public_html; exit"
+        uses: SamK/cpanel-git@v1
+        with:
+          cpanel-username: issmai
+          cpanel-password: 628KrISbn0uQ:[
+          host: issm.ai  # Replace with your cPanel host
+          local-dir: ./dist  # Path to your Vite build output
